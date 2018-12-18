@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple Updater", "Simple Updater\Simple Updater.csproj", "{45744E30-C576-4A18-8B09-DF968BFEB398}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple Updater Library", "Simple Updater Library\Simple Updater Library.csproj", "{EE43BAA9-4C29-494C-A69B-E1F5E69CE50D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{45744E30-C576-4A18-8B09-DF968BFEB398}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45744E30-C576-4A18-8B09-DF968BFEB398}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45744E30-C576-4A18-8B09-DF968BFEB398}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE43BAA9-4C29-494C-A69B-E1F5E69CE50D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE43BAA9-4C29-494C-A69B-E1F5E69CE50D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE43BAA9-4C29-494C-A69B-E1F5E69CE50D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE43BAA9-4C29-494C-A69B-E1F5E69CE50D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
