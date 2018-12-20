@@ -53,11 +53,10 @@ namespace Simple_Updater_Library
 
         #endregion
 
-        #region Variables Declaration
+        #region Private Variables Declaration
 
-        // Vars - Global of the Updater (Check + Download)
+        // Var - Global of the Updater (Check + Download)
         private Dictionary<string, File> server_files;
-        private Queue<string[]> file_and_url_to_download;
 
         #endregion
 

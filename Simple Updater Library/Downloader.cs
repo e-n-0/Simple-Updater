@@ -11,6 +11,7 @@ namespace Simple_Updater_Library
     partial class SimpleUpdater
     {
         // Private vars for the Downloader
+        private Queue<string> file_and_url_to_download;
         private long bytesdownloaded;
         private long totalbytestoreceive;
         private bool completed;
@@ -20,15 +21,14 @@ namespace Simple_Updater_Library
             // Initialize vars
             completed = false;
             bytesdownloaded = 0;
-            file_and_url_to_download = new Queue<string[]>();
+            file_and_url_to_download = new Queue<string>();
 
             foreach (KeyValuePair<string, File> entry in this.server_files)
             {
-                string dest_path_file = Path.Combine(this.installation_path, entry.Value.filename);
-
                 // Create the directory
                 try
                 {
+                    string dest_path_file = Path.Combine(this.installation_path, entry.Value.filename);
                     string new_dir_path = Path.GetDirectoryName(dest_path_file);
                     Directory.CreateDirectory(new_dir_path);
                 }
@@ -37,10 +37,8 @@ namespace Simple_Updater_Library
                     // Already exists
                 }
 
-                Uri uri = new Uri(this.server_url + "/files/" + entry.Value.filename);
-
                 // Enqueue all files to the queue and all files will be processed one by one 
-                this.file_and_url_to_download.Enqueue(new string[] { this.server_url + "/files/" + entry.Value.filename, dest_path_file });
+                this.file_and_url_to_download.Enqueue(entry.Value.filename);
             }
             
             // Don't block the main thread => Async thread
@@ -57,9 +55,12 @@ namespace Simple_Updater_Library
                 client.DownloadProgressChanged += client_DownloadProgressChanged;
                 client.DownloadFileCompleted += client_DownloadFileCompleted;
 
-                string[] item = (string[])(file_and_url_to_download.Dequeue());
+                string filename = file_and_url_to_download.Dequeue();
 
-                client.DownloadFileAsync(new Uri(item[0]), item[1]);
+                Uri uri = new Uri(this.server_url + "/files/" + filename);
+                string dest_path_file = Path.Combine(this.installation_path, filename);
+
+                client.DownloadFileAsync(uri, dest_path_file);
             }
             else
             {
