@@ -11,7 +11,7 @@ namespace Simple_Updater_Library
     partial class SimpleUpdater
     {
         // Private vars for the Downloader
-        private Queue<string> file_and_url_to_download;
+        private Queue<string> file_to_download;
         private long bytesdownloaded;
         private long totalbytestoreceive;
         private bool completed;
@@ -21,7 +21,7 @@ namespace Simple_Updater_Library
             // Initialize vars
             completed = false;
             bytesdownloaded = 0;
-            file_and_url_to_download = new Queue<string>();
+            file_to_download = new Queue<string>();
 
             foreach (KeyValuePair<string, File> entry in this.server_files)
             {
@@ -38,7 +38,7 @@ namespace Simple_Updater_Library
                 }
 
                 // Enqueue all files to the queue and all files will be processed one by one 
-                this.file_and_url_to_download.Enqueue(entry.Value.filename);
+                this.file_to_download.Enqueue(entry.Value.filename);
             }
             
             // Don't block the main thread => Async thread
@@ -48,14 +48,16 @@ namespace Simple_Updater_Library
 
         private void DownloadFile()
         {
-            if (this.file_and_url_to_download.Any())
+            // Check if there is any file in the queue
+            if (this.file_to_download.Any())
             {
                 WebClient client = new WebClient();
 
+                // Set events for the client downloader
                 client.DownloadProgressChanged += client_DownloadProgressChanged;
                 client.DownloadFileCompleted += client_DownloadFileCompleted;
 
-                string filename = file_and_url_to_download.Dequeue();
+                string filename = file_to_download.Dequeue();
 
                 Uri uri = new Uri(this.server_url + "/files/" + filename);
                 string dest_path_file = Path.Combine(this.installation_path, filename);
