@@ -40,8 +40,9 @@ namespace Simple_Updater_Library
                 // Enqueue all files to the queue and all files will be processed one by one 
                 this.file_to_download.Enqueue(entry.Value.filename);
             }
-            
+
             // Don't block the main thread => Async thread
+            Status_Changed(4);
             Thread download = new Thread(() => DownloadFile());
             download.Start();
         }
@@ -76,17 +77,21 @@ namespace Simple_Updater_Library
             if (e.Error != null)
             {
                 // handle error scenario
+                Status_Changed(6);
                 throw e.Error;
             }
             if (e.Cancelled)
             {
                 // handle cancelled scenario
+                Status_Changed(7);
             }
 
             this.bytesdownloaded += this.totalbytestoreceive;
 
             this.totalbytestoreceive = 0;
             this.completed = false;
+
+            Status_Changed(5);
 
             DownloadFile();
         }

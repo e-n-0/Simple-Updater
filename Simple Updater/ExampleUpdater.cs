@@ -42,6 +42,37 @@ namespace Simple_Updater
             updater.OnCheckFinished += Updater_OnCheckFinished;
             updater.OnDownloadFinished += Updater_OnDownloadFinished;
             updater.OnDownloadProgressChanged += Updater_OnDownloadProgressChanged;
+            updater.OnStatusChanged += Updater_OnStatusChanged;
+        }
+
+        // Event triggered when the status changed
+        private void Updater_OnStatusChanged(uint code)
+        {
+            /*
+             * 0 - Waiting for action
+             * 1 - Contacting server for files to parse
+             * 2 - Search and delete local files
+             * 3 - Check finished - Triggered after Check_Finished(...) - (not very usefull - duplicate of Check_Finished(...) )
+             * 4 - Download started
+             * 5 - A file has been sucessfully downloaded
+             * 6 - An error occurered when downloading a file
+             * 7 - Download cancelled
+             * 8 - Download finished - Triggered after Download_Finished(...) - (not very usefull - duplicate of Download_Finished(...) )
+             */
+
+            switch (code)
+            {
+                case 0: Debug.WriteLine("Waiting for action"); return;
+                case 1: Debug.WriteLine("Contacting server for files to parse"); return;
+                case 2: Debug.WriteLine("Search and delete local files"); return;
+                case 3: Debug.WriteLine("Check finished"); return;
+                case 4: Debug.WriteLine("Download started"); return;
+                case 5: Debug.WriteLine("A file has been sucessfully downloaded"); return;
+                case 6: Debug.WriteLine("An error occurered when downloading a file"); return;
+                case 7: Debug.WriteLine("Download cancelled"); return;
+                case 8: Debug.WriteLine("Download finished"); return;
+                default: return;
+            }
         }
 
         // Event triggered when the download progress changed

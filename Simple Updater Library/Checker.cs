@@ -19,12 +19,14 @@ namespace Simple_Updater_Library
             }
 
             // Get server files
+            Status_Changed(1);
             this.server_files = parseFileServer(this.server_url);
             int nbrServerFiles = this.server_files.Count;
             int nbrFilesDeleted = 0;
             int nbrLocalFiles = 0;
 
             // Check local files with server files
+            Status_Changed(2);
             SearchLocalFiles(this.installation_path, this.installation_path, this.server_files, ref nbrLocalFiles, ref nbrFilesDeleted);
             nbrLocalFiles = nbrLocalFiles - nbrFilesDeleted;
             int nbrFilesToDownload = this.server_files.Count;

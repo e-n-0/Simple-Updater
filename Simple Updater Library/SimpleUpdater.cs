@@ -23,19 +23,25 @@ namespace Simple_Updater_Library
         private bool canDownload;
         public bool CanDownload
         {
-            get { return canDownload; }
+            get => canDownload;
         }
 
         private bool canCheck;
         public bool CanCheck
         {
-            get { return canCheck; }
+            get => canCheck;
         }
 
         private long numberOfBytesToDownload;
         public long NumberOfBytesToDownload
         {
             get => this.numberOfBytesToDownload;
+        }
+
+        private uint statusCode;
+        public uint StatusCode
+        {
+            get => this.statusCode;
         }
 
         #endregion
@@ -50,6 +56,9 @@ namespace Simple_Updater_Library
 
         public delegate void DownloadProgressChanged(long totalbytesdownloaded, float percent);
         public event DownloadProgressChanged OnDownloadProgressChanged;
+
+        public delegate void StatusChanged(uint code);
+        public event StatusChanged OnStatusChanged;
 
         #endregion
 
@@ -68,37 +77,10 @@ namespace Simple_Updater_Library
             this.installation_path = installation_path;
             canDownload = false;
             canCheck = true;
-
-            // Example of Event Subscription
-            /*OnCheckFinished += SimpleUpdater_OnCheckFinished;
-            OnDownloadFinished += SimpleUpdater_OnDownloadFinished;
-            OnDownloadProgressChanged += SimpleUpdater_OnDownloadProgressChanged;*/
+            statusCode = 0;
         }
 
         #endregion
-
-        #region Event Subscription Examples
-
-        /*
-        private void SimpleUpdater_OnDownloadProgressChanged(long totalbytesdownloaded, float percent)
-        {
-            Debug.WriteLine(totalbytesdownloaded + " - " + percent);
-        }
-
-        private void SimpleUpdater_OnCheckFinished(int nbrLocalFiles, int nbrServerFiles, int nbrFilesToDownload, int nbrFilesDeleted, long numberOfBytesToDownload)
-        {
-            Debug.WriteLine("nbrLocal: " + nbrLocalFiles + " - nbrServer: " + nbrServerFiles + " - Dl: " + nbrFilesToDownload + " - Deleted: " + nbrFilesDeleted + " - BytesToDl: " + numberOfBytesToDownload);
-        }
-
-        private void SimpleUpdater_OnDownloadFinished(long bytesdownloaded)
-        {
-            Debug.WriteLine("Download finished - Bytes:" + bytesdownloaded);
-        }
-        */
-
-        #endregion
-
-
 
         public void CheckFilesFromServerAndDeleteOutdated()
         {
@@ -136,6 +118,8 @@ namespace Simple_Updater_Library
             this.canDownload = true;
 
             this.OnCheckFinished(nbrLocalFiles, nbrServerFiles, nbrFilesToDownload, nbrFilesDeleted, this.numberOfBytesToDownload);
+            Status_Changed(3);
+            Status_Changed(0);
         }
 
         private void Download_Finished()
@@ -143,12 +127,32 @@ namespace Simple_Updater_Library
             this.canDownload = true;
             this.canCheck = true;
             this.OnDownloadFinished(this.bytesdownloaded);
+            Status_Changed(8);
+            Status_Changed(0);
         }
 
         private void DownloadProgress_Changed(long totalbytesdownloaded)
         {
             float percent = (float)(totalbytesdownloaded) / (float)numberOfBytesToDownload;
             OnDownloadProgressChanged(totalbytesdownloaded, percent * 100);
+        }
+
+        private void Status_Changed(uint code)
+        {
+            /*
+             * 0 - Waiting for action
+             * 1 - Contacting server for files to parse
+             * 2 - Search and delete local files
+             * 3 - Check finished - Triggered after Check_Finished(...) - (not very usefull - duplicate of Check_Finished(...) )
+             * 4 - Download started
+             * 5 - A file has been sucessfully downloaded
+             * 6 - An error occurered when downloading a file
+             * 7 - Download cancelled
+             * 8 - Download finished - Triggered after Download_Finished(...) - (not very usefull - duplicate of Download_Finished(...) )
+             */
+
+            this.statusCode = code;
+            this.OnStatusChanged(code);
         }
 
         #endregion
