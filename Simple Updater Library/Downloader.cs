@@ -22,10 +22,6 @@ namespace Simple_Updater_Library
             bytesdownloaded = 0;
             file_and_url_to_download = new Queue<string[]>();
 
-            /*long _bytesdownloaded = bytesdownloaded;
-            long _totalbytestoreceive = totalbytestoreceive;
-            bool _completed = completed;*/
-
             foreach (KeyValuePair<string, File> entry in this.server_files)
             {
                 string dest_path_file = Path.Combine(this.installation_path, entry.Value.filename);
@@ -42,9 +38,12 @@ namespace Simple_Updater_Library
                 }
 
                 Uri uri = new Uri(this.server_url + "/files/" + entry.Value.filename);
+
+                // Enqueue all files to the queue and all files will be processed one by one 
                 this.file_and_url_to_download.Enqueue(new string[] { this.server_url + "/files/" + entry.Value.filename, dest_path_file });
             }
-
+            
+            // Don't block the main thread => Async thread
             Thread download = new Thread(() => DownloadFile());
             download.Start();
         }
@@ -55,15 +54,8 @@ namespace Simple_Updater_Library
             {
                 WebClient client = new WebClient();
 
-                //client.DownloadProgressChanged += new DownloadProgressChangedEventHandler((sender, e) => client_DownloadProgressChanged(sender, e, this.bytesdownloaded, this.totalbytestoreceive, this.completed));
-                //client.DownloadFileCompleted += new AsyncCompletedEventHandler((sender, e) => client_DownloadFileCompleted(sender, e, file_and_url_to_download, ref _bytesdownloaded, ref _totalbytestoreceive, ref _completed));
-
                 client.DownloadProgressChanged += client_DownloadProgressChanged;
                 client.DownloadFileCompleted += client_DownloadFileCompleted;
-
-                /*bytesdownloaded = _bytesdownloaded;
-                totalbytestoreceive = _totalbytestoreceive;
-                completed = _completed;*/
 
                 string[] item = (string[])(file_and_url_to_download.Dequeue());
 
@@ -100,6 +92,7 @@ namespace Simple_Updater_Library
         {
             this.totalbytestoreceive = e.TotalBytesToReceive;
 
+            // Weird fix, this event is triggered two times for 100% - So check with 'completed' to avoid duplicates additions
             if (!this.completed && e.ProgressPercentage == 100)
             {
                 this.completed = true;

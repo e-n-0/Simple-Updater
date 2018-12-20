@@ -110,11 +110,6 @@ namespace Simple_Updater_Library
 
             server_files = new Dictionary<string, File>();
 
-            /*int _nbrLocalFiles = 0;
-            int _nbrServerFiles = 0;
-            int _nbrFilesToDownload = 0;
-            int _nbrFilesDeleted = 0;*/
-
             this.canCheck = false;
             this.canDownload = false;
 
