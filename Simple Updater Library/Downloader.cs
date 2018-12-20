@@ -10,18 +10,27 @@ using System.Threading.Tasks;
 
 namespace Simple_Updater_Library
 {
-    internal class Downloader
+    partial class SimpleUpdater
     {
-        public static void DownloadFiles(SimpleUpdater upt, Dictionary<string, File> files_server, Queue<string[]> file_and_url_to_download, string installation_path, string url_server, ref long bytesdownloaded, ref long totalbytestoreceive, ref bool completed)
+        // Private vars for the Downloader
+        private long bytesdownloaded;
+        private long totalbytestoreceive;
+        private bool completed;
+
+        private void DownloadFiles_Downloader()
         {
             // Initialize vars
-            long _bytesdownloaded = bytesdownloaded;
-            long _totalbytestoreceive = totalbytestoreceive;
-            bool _completed = completed;
+            completed = false;
+            bytesdownloaded = 0;
+            file_and_url_to_download = new Queue<string[]>();
 
-            foreach (KeyValuePair<string, File> entry in files_server)
+            /*long _bytesdownloaded = bytesdownloaded;
+            long _totalbytestoreceive = totalbytestoreceive;
+            bool _completed = completed;*/
+
+            foreach (KeyValuePair<string, File> entry in this.server_files)
             {
-                string dest_path_file = Path.Combine(installation_path, entry.Value.filename);
+                string dest_path_file = Path.Combine(this.installation_path, entry.Value.filename);
 
                 // Create the directory
                 try
@@ -34,30 +43,29 @@ namespace Simple_Updater_Library
                     // Already exists
                 }
 
-                Uri uri = new Uri(url_server + "/files/" + entry.Value.filename);
-                file_and_url_to_download.Enqueue(new string[] { url_server + "/files/" + entry.Value.filename, dest_path_file });
+                Uri uri = new Uri(this.server_url + "/files/" + entry.Value.filename);
+                this.file_and_url_to_download.Enqueue(new string[] { this.server_url + "/files/" + entry.Value.filename, dest_path_file });
             }
 
-            Thread download = new Thread(() => DownloadFile(upt, file_and_url_to_download, ref _bytesdownloaded, ref _totalbytestoreceive, ref _completed));
+            Thread download = new Thread(() => DownloadFile());
             download.Start();
         }
 
-        static void DownloadFile(SimpleUpdater upt, Queue<string[]> file_and_url_to_download, ref long bytesdownloaded, ref long totalbytestoreceive, ref bool completed)
+        private void DownloadFile()
         {
-            if (file_and_url_to_download.Any())
+            if (this.file_and_url_to_download.Any())
             {
                 WebClient client = new WebClient();
 
-                long _bytesdownloaded = bytesdownloaded;
-                long _totalbytestoreceive = totalbytestoreceive;
-                bool _completed = completed;
+                //client.DownloadProgressChanged += new DownloadProgressChangedEventHandler((sender, e) => client_DownloadProgressChanged(sender, e, this.bytesdownloaded, this.totalbytestoreceive, this.completed));
+                //client.DownloadFileCompleted += new AsyncCompletedEventHandler((sender, e) => client_DownloadFileCompleted(sender, e, file_and_url_to_download, ref _bytesdownloaded, ref _totalbytestoreceive, ref _completed));
 
-                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler((sender, e) => client_DownloadProgressChanged(sender, e, upt, ref _bytesdownloaded, ref _totalbytestoreceive, ref _completed));
-                client.DownloadFileCompleted += new AsyncCompletedEventHandler((sender, e) => client_DownloadFileCompleted(sender, e, upt, file_and_url_to_download, ref _bytesdownloaded, ref _totalbytestoreceive, ref _completed));
+                client.DownloadProgressChanged += client_DownloadProgressChanged;
+                client.DownloadFileCompleted += client_DownloadFileCompleted;
 
-                bytesdownloaded = _bytesdownloaded;
+                /*bytesdownloaded = _bytesdownloaded;
                 totalbytestoreceive = _totalbytestoreceive;
-                completed = _completed;
+                completed = _completed;*/
 
                 string[] item = (string[])(file_and_url_to_download.Dequeue());
 
@@ -66,11 +74,11 @@ namespace Simple_Updater_Library
             else
             {
                 // Download finished
-                upt.Download_Finished(ref bytesdownloaded);
+                Download_Finished();
             }
         }
 
-        private static void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e, SimpleUpdater upt, Queue<string[]> _file_and_url_to_download, ref long bytesdownloaded, ref long totalbytestoreceive, ref bool completed)
+        private void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             if (e.Error != null)
             {
@@ -82,26 +90,26 @@ namespace Simple_Updater_Library
                 // handle cancelled scenario
             }
 
-            bytesdownloaded += totalbytestoreceive;
+            this.bytesdownloaded += this.totalbytestoreceive;
 
-            totalbytestoreceive = 0;
-            completed = false;
+            this.totalbytestoreceive = 0;
+            this.completed = false;
 
-            DownloadFile(upt, _file_and_url_to_download, ref bytesdownloaded, ref totalbytestoreceive, ref completed);
+            DownloadFile();
         }
 
-        private static void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e, SimpleUpdater upt, ref long bytesdownloaded, ref long totalbytestoreceive, ref bool completed)
+        private void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            totalbytestoreceive = e.TotalBytesToReceive;
+            this.totalbytestoreceive = e.TotalBytesToReceive;
 
-            if (!completed && e.ProgressPercentage == 100)
+            if (!this.completed && e.ProgressPercentage == 100)
             {
-                completed = true;
-                upt.DownloadProgress(bytesdownloaded + e.BytesReceived);
+                this.completed = true;
+                DownloadProgress_Changed(this.bytesdownloaded + e.BytesReceived);
             }
-            else if (!completed)
+            else if (!this.completed)
             {
-                upt.DownloadProgress(bytesdownloaded + e.BytesReceived);
+                DownloadProgress_Changed(this.bytesdownloaded + e.BytesReceived);
             }
         }
     }

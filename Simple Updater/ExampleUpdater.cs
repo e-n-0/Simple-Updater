@@ -19,7 +19,7 @@ using System.Windows.Forms;
 
 namespace Simple_Updater
 {
-    public partial class Form1 : Form
+    public partial class ExampleUpdater : Form
     {
 
         // Configuration
@@ -28,8 +28,7 @@ namespace Simple_Updater
 
         // Var
         SimpleUpdater updater;
-
-        public Form1()
+        public ExampleUpdater()
         {
             InitializeComponent();
             progressBar1.Maximum = 100;

@@ -11,37 +11,38 @@ using System.Threading.Tasks;
 
 namespace Simple_Updater_Library
 {
-    internal class Checker
+    partial class SimpleUpdater
     {
-        public static void CheckFilesFromServerAndDeleteOutdated(SimpleUpdater upt, string server_url, string installation_path, ref Dictionary<string, File> files_server, 
-            ref int nbrLocalFiles, ref int nbrServerFiles, ref int nbrFilesToDownload, ref int nbrFilesDeleted, ref long numberOfBytesToDownload)
+        private void Check()
         {
             // Check if installation_path folder exists, otherwise create it
-            if (!Directory.Exists(installation_path))
+            if (!Directory.Exists(this.installation_path))
             {
-                Directory.CreateDirectory(installation_path);
+                Directory.CreateDirectory(this.installation_path);
             }
 
             // Get server files
-            files_server = parseFileServer(server_url);
-            nbrServerFiles = files_server.Count;
+            this.server_files = parseFileServer(this.server_url);
+            int nbrServerFiles = this.server_files.Count;
+            int nbrFilesDeleted = 0;
+            int nbrLocalFiles = 0;
 
             // Check local files with server files
-            searchLocalFiles(installation_path, installation_path, files_server, ref nbrLocalFiles, ref nbrFilesDeleted);
+            SearchLocalFiles(this.installation_path, this.installation_path, this.server_files, ref nbrLocalFiles, ref nbrFilesDeleted);
             nbrLocalFiles = nbrLocalFiles - nbrFilesDeleted;
-            nbrFilesToDownload = files_server.Count;
+            int nbrFilesToDownload = this.server_files.Count;
 
             // Get number of bytes to download
             numberOfBytesToDownload = 0;
-            foreach (KeyValuePair<string, File> entry in files_server)
+            foreach (KeyValuePair<string, File> entry in this.server_files)
             {
-                numberOfBytesToDownload += entry.Value.filesize;
+                this.numberOfBytesToDownload += entry.Value.filesize;
             }
 
-            upt.check_finished(ref nbrLocalFiles, ref nbrServerFiles, ref nbrFilesToDownload, ref nbrFilesDeleted, ref numberOfBytesToDownload);
+            Check_Finished(nbrLocalFiles, nbrServerFiles, nbrFilesToDownload, nbrFilesDeleted);
         }
 
-        public static bool searchLocalFiles(string installation_path, string dir, Dictionary<string, File> server_files, ref int nbrFilesLocal, ref int nbrFilesDeleted)
+        private static bool SearchLocalFiles(string installation_path, string dir, Dictionary<string, File> server_files, ref int nbrFilesLocal, ref int nbrFilesDeleted)
         {
             bool checkFolderEmpty = false;
 
@@ -76,7 +77,7 @@ namespace Simple_Updater_Library
                     // Search and add all files from directories
                     foreach (string directory in Directory.GetDirectories(dir))
                     {
-                        if (searchLocalFiles(installation_path, directory, server_files, ref nbrFilesLocal, ref nbrFilesDeleted))
+                        if (SearchLocalFiles(installation_path, directory, server_files, ref nbrFilesLocal, ref nbrFilesDeleted))
                         {
                             // Delete the directory if it's empty
                             if (Directory.Exists(dir) && !Directory.EnumerateFileSystemEntries(dir).Any())
@@ -120,7 +121,7 @@ namespace Simple_Updater_Library
                 }
                 catch
                 {
-                    throw new Exception("An error occured when trying to access the server");
+                    throw new Exception("An error occured will trying to access the server");
                 }
             }
 

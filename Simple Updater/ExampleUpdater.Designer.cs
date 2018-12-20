@@ -1,6 +1,6 @@
 ﻿namespace Simple_Updater
 {
-    partial class Form1
+    partial class ExampleUpdater
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
