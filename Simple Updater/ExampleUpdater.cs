@@ -28,53 +28,61 @@ namespace Simple_Updater
 
         // Var
         SimpleUpdater updater;
+
         public ExampleUpdater()
         {
             InitializeComponent();
-            progressBar1.Maximum = 100;
 
+            ProgressBarDownloading.Maximum = 100;
+
+            // Initialize the Simple Updater
             updater = new SimpleUpdater(urlServer, installation_path);
+
+            // Initalize Events of the SimpleUpdater
             updater.OnCheckFinished += Updater_OnCheckFinished;
             updater.OnDownloadFinished += Updater_OnDownloadFinished;
             updater.OnDownloadProgressChanged += Updater_OnDownloadProgressChanged;
         }
 
+        // Event triggered when the download progress changed
         private void Updater_OnDownloadProgressChanged(long totalbytesdownloaded, float percent)
         {
             this.Invoke((MethodInvoker)delegate
             {
-                label6.Text = "Total bytes downloaded : " + totalbytesdownloaded + " - " + Math.Round(percent) + "%";
-                progressBar1.Value = (int)Math.Round(percent);
+                TotalBytesDownloaded_Label.Text = "Total bytes downloaded : " + totalbytesdownloaded + " - " + Math.Round(percent) + "%";
+                ProgressBarDownloading.Value = (int)Math.Round(percent);
             });
         }
 
+        // Event triggered when the download finished
         private void Updater_OnDownloadFinished(long totalbytesdownloaded)
         {
             this.Invoke((MethodInvoker)delegate
             {
-                label6.Text = "Total bytes downloaded : " + totalbytesdownloaded + " - 100%";
+                TotalBytesDownloaded_Label.Text = "Total bytes downloaded : " + totalbytesdownloaded + " - 100%";
             });
             MessageBox.Show("Download finished !");
         }
 
+        // Event triggered when the check from the server finished
         private void Updater_OnCheckFinished(int nbrLocalFiles, int nbrServerFiles, int nbrFilesToDownload, int nbrFilesDeleted, long numberOfBytesToDownload)
         {
             this.Invoke((MethodInvoker)delegate
             {
-                label1.Text = "Number of local Files : " + nbrLocalFiles;
-                label2.Text = "Number of server Files : " + nbrServerFiles;
-                label3.Text = "Number of files to download : " + nbrFilesToDownload;
-                label4.Text = "Number of files deleted : " + nbrFilesDeleted;
-                label5.Text = "Total bytes to download : " + numberOfBytesToDownload;
+                NbrLocalFiles_Label.Text = "Number of local Files : " + nbrLocalFiles;
+                NbrServerFile_Label.Text = "Number of server Files : " + nbrServerFiles;
+                NbrFilesToDownload_Label.Text = "Number of files to download : " + nbrFilesToDownload;
+                NbrFilesDeleted_Label.Text = "Number of files deleted : " + nbrFilesDeleted;
+                TotalBytesToDownload_Label.Text = "Total bytes to download : " + numberOfBytesToDownload;
             });
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Check_Button_Click(object sender, EventArgs e)
         {
             updater.CheckFilesFromServerAndDeleteOutdated();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Download_Button_Click(object sender, EventArgs e)
         {
             updater.DownloadFiles();
         }

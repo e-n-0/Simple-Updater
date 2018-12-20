@@ -28,114 +28,114 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.Check_Button = new System.Windows.Forms.Button();
+            this.NbrLocalFiles_Label = new System.Windows.Forms.Label();
+            this.NbrServerFile_Label = new System.Windows.Forms.Label();
+            this.NbrFilesToDownload_Label = new System.Windows.Forms.Label();
+            this.NbrFilesDeleted_Label = new System.Windows.Forms.Label();
+            this.Download_Button = new System.Windows.Forms.Button();
+            this.TotalBytesToDownload_Label = new System.Windows.Forms.Label();
+            this.TotalBytesDownloaded_Label = new System.Windows.Forms.Label();
+            this.ProgressBarDownloading = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
-            // button1
+            // Check_Button
             // 
-            this.button1.Location = new System.Drawing.Point(53, 33);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(129, 42);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Check files from server and delete old";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Check_Button.Location = new System.Drawing.Point(53, 33);
+            this.Check_Button.Name = "Check_Button";
+            this.Check_Button.Size = new System.Drawing.Size(129, 42);
+            this.Check_Button.TabIndex = 0;
+            this.Check_Button.Text = "Check files from server and delete old";
+            this.Check_Button.UseVisualStyleBackColor = true;
+            this.Check_Button.Click += new System.EventHandler(this.Check_Button_Click);
             // 
-            // label1
+            // NbrLocalFiles_Label
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(50, 89);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Number of local Files :";
+            this.NbrLocalFiles_Label.AutoSize = true;
+            this.NbrLocalFiles_Label.Location = new System.Drawing.Point(50, 89);
+            this.NbrLocalFiles_Label.Name = "NbrLocalFiles_Label";
+            this.NbrLocalFiles_Label.Size = new System.Drawing.Size(111, 13);
+            this.NbrLocalFiles_Label.TabIndex = 1;
+            this.NbrLocalFiles_Label.Text = "Number of local Files :";
             // 
-            // label2
+            // NbrServerFile_Label
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(50, 116);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(118, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Number of server Files :";
+            this.NbrServerFile_Label.AutoSize = true;
+            this.NbrServerFile_Label.Location = new System.Drawing.Point(50, 116);
+            this.NbrServerFile_Label.Name = "NbrServerFile_Label";
+            this.NbrServerFile_Label.Size = new System.Drawing.Size(118, 13);
+            this.NbrServerFile_Label.TabIndex = 2;
+            this.NbrServerFile_Label.Text = "Number of server Files :";
             // 
-            // label3
+            // NbrFilesToDownload_Label
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(50, 142);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(144, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Number of files to download :";
+            this.NbrFilesToDownload_Label.AutoSize = true;
+            this.NbrFilesToDownload_Label.Location = new System.Drawing.Point(50, 142);
+            this.NbrFilesToDownload_Label.Name = "NbrFilesToDownload_Label";
+            this.NbrFilesToDownload_Label.Size = new System.Drawing.Size(144, 13);
+            this.NbrFilesToDownload_Label.TabIndex = 3;
+            this.NbrFilesToDownload_Label.Text = "Number of files to download :";
             // 
-            // label4
+            // NbrFilesDeleted_Label
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(50, 168);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(121, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Number of files deleted :";
+            this.NbrFilesDeleted_Label.AutoSize = true;
+            this.NbrFilesDeleted_Label.Location = new System.Drawing.Point(50, 168);
+            this.NbrFilesDeleted_Label.Name = "NbrFilesDeleted_Label";
+            this.NbrFilesDeleted_Label.Size = new System.Drawing.Size(121, 13);
+            this.NbrFilesDeleted_Label.TabIndex = 4;
+            this.NbrFilesDeleted_Label.Text = "Number of files deleted :";
             // 
-            // button2
+            // Download_Button
             // 
-            this.button2.Location = new System.Drawing.Point(300, 33);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(129, 42);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Download";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.Download_Button.Location = new System.Drawing.Point(300, 33);
+            this.Download_Button.Name = "Download_Button";
+            this.Download_Button.Size = new System.Drawing.Size(129, 42);
+            this.Download_Button.TabIndex = 5;
+            this.Download_Button.Text = "Download";
+            this.Download_Button.UseVisualStyleBackColor = true;
+            this.Download_Button.Click += new System.EventHandler(this.Download_Button_Click);
             // 
-            // label5
+            // TotalBytesToDownload_Label
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(297, 89);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(126, 13);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Total bytes to download :";
+            this.TotalBytesToDownload_Label.AutoSize = true;
+            this.TotalBytesToDownload_Label.Location = new System.Drawing.Point(297, 89);
+            this.TotalBytesToDownload_Label.Name = "TotalBytesToDownload_Label";
+            this.TotalBytesToDownload_Label.Size = new System.Drawing.Size(126, 13);
+            this.TotalBytesToDownload_Label.TabIndex = 6;
+            this.TotalBytesToDownload_Label.Text = "Total bytes to download :";
             // 
-            // label6
+            // TotalBytesDownloaded_Label
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(297, 116);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(126, 13);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Total bytes downloaded :";
+            this.TotalBytesDownloaded_Label.AutoSize = true;
+            this.TotalBytesDownloaded_Label.Location = new System.Drawing.Point(297, 116);
+            this.TotalBytesDownloaded_Label.Name = "TotalBytesDownloaded_Label";
+            this.TotalBytesDownloaded_Label.Size = new System.Drawing.Size(126, 13);
+            this.TotalBytesDownloaded_Label.TabIndex = 7;
+            this.TotalBytesDownloaded_Label.Text = "Total bytes downloaded :";
             // 
-            // progressBar1
+            // ProgressBarDownloading
             // 
-            this.progressBar1.Location = new System.Drawing.Point(300, 158);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(129, 23);
-            this.progressBar1.TabIndex = 8;
+            this.ProgressBarDownloading.Location = new System.Drawing.Point(300, 158);
+            this.ProgressBarDownloading.Name = "ProgressBarDownloading";
+            this.ProgressBarDownloading.Size = new System.Drawing.Size(129, 23);
+            this.ProgressBarDownloading.TabIndex = 8;
             // 
-            // Form1
+            // ExampleUpdater
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(604, 201);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Controls.Add(this.ProgressBarDownloading);
+            this.Controls.Add(this.TotalBytesDownloaded_Label);
+            this.Controls.Add(this.TotalBytesToDownload_Label);
+            this.Controls.Add(this.Download_Button);
+            this.Controls.Add(this.NbrFilesDeleted_Label);
+            this.Controls.Add(this.NbrFilesToDownload_Label);
+            this.Controls.Add(this.NbrServerFile_Label);
+            this.Controls.Add(this.NbrLocalFiles_Label);
+            this.Controls.Add(this.Check_Button);
+            this.Name = "ExampleUpdater";
+            this.Text = "Example Updater";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,15 +143,15 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button Check_Button;
+        private System.Windows.Forms.Label NbrLocalFiles_Label;
+        private System.Windows.Forms.Label NbrServerFile_Label;
+        private System.Windows.Forms.Label NbrFilesToDownload_Label;
+        private System.Windows.Forms.Label NbrFilesDeleted_Label;
+        private System.Windows.Forms.Button Download_Button;
+        private System.Windows.Forms.Label TotalBytesToDownload_Label;
+        private System.Windows.Forms.Label TotalBytesDownloaded_Label;
+        private System.Windows.Forms.ProgressBar ProgressBarDownloading;
     }
 }
 
