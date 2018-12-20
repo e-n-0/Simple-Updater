@@ -54,7 +54,7 @@ namespace Simple_Updater
              * 2 - Search and delete local files
              * 3 - Check finished - Triggered after Check_Finished(...) - (not very usefull - duplicate of Check_Finished(...) )
              * 4 - Download started
-             * 5 - A file has been sucessfully downloaded
+             * 5 - A file has been successfully downloaded
              * 6 - An error occurered when downloading a file
              * 7 - Download cancelled
              * 8 - Download finished - Triggered after Download_Finished(...) - (not very usefull - duplicate of Download_Finished(...) )
@@ -67,7 +67,7 @@ namespace Simple_Updater
                 case 2: Debug.WriteLine("Search and delete local files"); return;
                 case 3: Debug.WriteLine("Check finished"); return;
                 case 4: Debug.WriteLine("Download started"); return;
-                case 5: Debug.WriteLine("A file has been sucessfully downloaded"); return;
+                case 5: Debug.WriteLine("A file has been successfully downloaded"); return;
                 case 6: Debug.WriteLine("An error occurered when downloading a file"); return;
                 case 7: Debug.WriteLine("Download cancelled"); return;
                 case 8: Debug.WriteLine("Download finished"); return;

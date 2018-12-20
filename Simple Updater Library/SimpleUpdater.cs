@@ -145,7 +145,7 @@ namespace Simple_Updater_Library
              * 2 - Search and delete local files
              * 3 - Check finished - Triggered after Check_Finished(...) - (not very usefull - duplicate of Check_Finished(...) )
              * 4 - Download started
-             * 5 - A file has been sucessfully downloaded
+             * 5 - A file has been successfully downloaded
              * 6 - An error occurered when downloading a file
              * 7 - Download cancelled
              * 8 - Download finished - Triggered after Download_Finished(...) - (not very usefull - duplicate of Download_Finished(...) )
