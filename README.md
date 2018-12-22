@@ -37,7 +37,7 @@ It's developped in **C#**. Check the documention bellow to start using it !  *(A
 	* [Status code](#status-code)
 * [Example Project](#example-project)
 * [Credit](#credit)
-* [Licence](#licence)
+* [License](#license)
 
 ## Installation
 
@@ -132,6 +132,6 @@ The example project is fully commented. You can find it in **[C# - Example Proje
 ## Credit
 * [S0me1ne](https://github.com/S0me1ne) - Flavien Darche _ [[Twitter](https://twitter.com/_S0me1ne) - [Website]((https://s0me1ne.fr))]
 
-## Licence
+## License
 
-[`MIT License`](https://github.com/S0me1ne/Simple-Updater/LICENCE.md)
+[`MIT License`](https://github.com/S0me1ne/Simple-Updater/blob/master/LICENSE)
