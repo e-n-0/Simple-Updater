@@ -1,7 +1,7 @@
 # <div align=center><img src="https://i.imgur.com/1gvVedX.png" /><br>![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat) [![HitCount](http://hits.dwyl.io/S0me1ne/Simple-Updater.svg)](http://hits.dwyl.io/S0me1ne/Simple-Updater) [![Docs](https://inch-ci.org/github/dwyl/hapi-auth-jwt2.svg)](#code-documentation) </div>
 
 
-**Simple Updater** is a library created to help you building an Updater in few lines of code (for your game launcher or other project).
+**Simple Updater** is a library created to help you building an Updater in a few lines of code (for your game launcher or other projects).
 Just download the library, reference it to your project and you are good to go !
 For now, it's only usable with **.NET** *≥ 4.6*
 It's developped in **C#**. Check the documention bellow to start using it !  *(An example project is provided in the source)*
@@ -12,8 +12,7 @@ It's developped in **C#**. Check the documention bellow to start using it !  *(A
 * Delete old or unwanted files that doesn't match with the server
 * Ignore list 
 * Webclient configuration
-* Cache of the server result *(Optional - can have a long time response if disabled with a lot of files)*
-* Configure the time of the cache
+* Can cache the server result for **x** minutes/seconds *(Optional - can have a long time response if disabled with a lot of files)*
 * Trigger event for each step (Checking files, downloading, ...)
 * Status code
 * Download progression
@@ -47,7 +46,7 @@ You will need a webserver to host files that the updater will download.
 1. Clone/Download the project
 2. Upload files that are in **'PHP - Server files'** to your webserver
 3. Check the **index.php** for configuration
-4. Create a folder named **'files'** in the same directory of the **index.php** file
+4. Create a folder named **'files'** in the same directory as the **index.php** file
 5. Place all files that you want to download in that **'files'** folder
 
 ### Client integration
@@ -65,8 +64,8 @@ SimpleUpdater updater = new SimpleUpdater(server_url, installation_path);
 
 |Params          |Type        |Description|
 |----------------|------------|-----------|
-|server_url		 |`string`    | The url of the server that files will be download
-| installation_path | `string` | The path where files will be downloaded **(be carefull if not set correctly it can delete bad files)**
+|server_url		 |`string`    | The url of the server on which files will be download
+| installation_path | `string` | The path where files will be downloaded **(be careful if not set correctly it can delete wrong files)**
 
 ### Function: Check files from the server and delete outdated files (keep updated)
 
@@ -75,7 +74,7 @@ updater.CheckFilesFromServerAndDeleteOutdated();
 ```
 
 **Description:**
-This function will contact the server to get all files and search through all local files and directories wich files need to be deleted, downloaded or ignored.
+This function will contact the server to get all files and search through all local files and directories which files need to be deleted, downloaded or ignored.
 Files that needs to be deleted will be automaticaly deleted.
 > This function must be called before downloading files.
 
@@ -93,10 +92,10 @@ This will download all files that needs to be downloaded to the `installation_pa
 
 |Name 	 |Type 	|Description
 |------- |------|-------
-|Server_Url | <div color="red">`string`</div> | The url of the server of files you want to download
+|Server_Url | <div color="red">`string`</div> | The url of the server on which files will be downloaded
 | Installation_path | `string` | The path where files will be download
-| CanDownload | `bool` | Check if you can start the download of files
-| CanCheck | `bool` | Check if you can start the verification process of local files
+| CanDownload | `bool` | Check whether you can start the download of files
+| CanCheck | `bool` | Check whether  you can start the verification process of local files
 | NumberOfBytesToDownload | `long` | Get the number of bytes that will be downloaded
 | StatusCode | `uint` | Get the status code
 
