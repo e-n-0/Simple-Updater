@@ -1,4 +1,4 @@
-# <div align=center><img src="https://i.imgur.com/1gvVedX.png" /><br>[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues) [![HitCount](http://hits.dwyl.io/S0me1ne/Simple-Updater.svg)](http://hits.dwyl.io/S0me1ne/Simple-Updater) [![Docs](https://inch-ci.org/github/dwyl/hapi-auth-jwt2.svg)](#code-documentation) </div>
+# <div align=center><img src="https://i.imgur.com/1gvVedX.png" /><br>![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat) [![HitCount](http://hits.dwyl.io/S0me1ne/Simple-Updater.svg)](http://hits.dwyl.io/S0me1ne/Simple-Updater) [![Docs](https://inch-ci.org/github/dwyl/hapi-auth-jwt2.svg)](#code-documentation) </div>
 
 
 **Simple Updater** is a library created to help you building an Updater in few lines of code (for your game launcher or other project).
