@@ -143,16 +143,12 @@ namespace Simple_Updater_Library
 
             if (!string.IsNullOrEmpty(jsonFile))
             {
-                JObject json_file_object = JObject.Parse(jsonFile);
-                JToken files = json_file_object.GetValue("files");
+                ServerResponse jsonResult = JSONSerializer<ServerResponse>.DeSerialize(jsonFile);
+
+                // Set up the dictionary for server files
                 Dictionary<string, File> files_arr_tmp = new Dictionary<string, File>();
-
-                // Convert json item to File Object
-                for (int i = 0; i < files.First.Count(); i++)
+                foreach(File file in jsonResult.files)
                 {
-                    File file = new File();
-                    file = JsonConvert.DeserializeObject<File>(files.First[i].ToString());
-
                     files_arr_tmp.Add(file.filename, file);
                 }
 
@@ -160,31 +156,21 @@ namespace Simple_Updater_Library
                 this.ignore_list_files = new List<string>();
                 this.ignore_list_folders = new Dictionary<string, bool>();
 
-                JToken ignore = json_file_object.GetValue("ignore");
-
-                // Parse ignore list if it's not empty
-                if(!string.IsNullOrEmpty(ignore.ToString()))
+                foreach(IgnoreFolderConfig folder in jsonResult.ignore.folders)
                 {
-                    JToken ignore_file = ignore["files"];
-                    foreach (JToken childToken in ignore_file)
-                    {
-                        this.ignore_list_files.Add(childToken.ToString());
-                    }
+                    this.ignore_list_folders.Add(folder.folder_path, folder.all_subfolders);
+                }
 
-                    JToken ignore_folder = ignore["folders"];
-                    foreach (JToken childToken in ignore_folder)
-                    {
-                        string folder_path = childToken["folder_path"].ToString();
-                        bool all_subfolders = childToken["all_subfolders"].Value<bool>();
-                        this.ignore_list_folders.Add(folder_path, all_subfolders);
-                    }
+                foreach(string file in jsonResult.ignore.files)
+                {
+                    this.ignore_list_files.Add(file);
                 }
 
                 return files_arr_tmp;
             }
             else
             {
-                // Any files in the server
+                // Any json result from the server, maybe a bad config of the server (blank page)
                 return new Dictionary<string, File>();
             }
         }
