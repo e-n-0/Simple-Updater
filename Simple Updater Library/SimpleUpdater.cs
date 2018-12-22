@@ -66,6 +66,8 @@ namespace Simple_Updater_Library
 
         // Var - Global of the Updater (Check + Download)
         private Dictionary<string, File> server_files;
+        private List<string> ignore_list_files;
+        private Dictionary<string, bool> ignore_list_folders;
 
         #endregion
 
@@ -102,7 +104,7 @@ namespace Simple_Updater_Library
         {
             if(!canDownload || server_files == null)
             {
-                throw new Exception("Download not authorized. Have you checked server files ?");
+                throw new Exception("Download not authorized. Have you checked out server files ?");
             }
 
             this.canDownload = false;
@@ -133,7 +135,18 @@ namespace Simple_Updater_Library
 
         private void DownloadProgress_Changed(long totalbytesdownloaded)
         {
-            float percent = (float)(totalbytesdownloaded) / (float)numberOfBytesToDownload;
+            float percent;
+            // Division by 0 ? Don't know if it can occur
+            try
+            {
+                percent = (float)(totalbytesdownloaded) / (float)numberOfBytesToDownload;
+            }
+            catch
+            {
+                percent = 100;
+            }
+            
+            // Trigger event
             OnDownloadProgressChanged(totalbytesdownloaded, percent * 100);
         }
 

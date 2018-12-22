@@ -20,14 +20,14 @@ namespace Simple_Updater_Library
 
             // Get server files
             Status_Changed(1);
-            this.server_files = parseFileServer(this.server_url);
+            this.server_files = parseFileServer();
             int nbrServerFiles = this.server_files.Count;
             int nbrFilesDeleted = 0;
             int nbrLocalFiles = 0;
 
             // Check local files with server files
             Status_Changed(2);
-            SearchLocalFiles(this.installation_path, this.installation_path, this.server_files, ref nbrLocalFiles, ref nbrFilesDeleted);
+            SearchLocalFiles(this.installation_path, this.installation_path, this.server_files, this.ignore_list_files, this.ignore_list_folders, ref nbrLocalFiles, ref nbrFilesDeleted, false, false);
             nbrLocalFiles = nbrLocalFiles - nbrFilesDeleted;
             int nbrFilesToDownload = this.server_files.Count;
 
@@ -41,7 +41,7 @@ namespace Simple_Updater_Library
             Check_Finished(nbrLocalFiles, nbrServerFiles, nbrFilesToDownload, nbrFilesDeleted);
         }
 
-        private static bool SearchLocalFiles(string installation_path, string dir, Dictionary<string, File> server_files, ref int nbrFilesLocal, ref int nbrFilesDeleted)
+        private static bool SearchLocalFiles(string installation_path, string dir, Dictionary<string, File> server_files, List<string> ignore_list_files, Dictionary<string, bool> ignore_list_folders, ref int nbrFilesLocal, ref int nbrFilesDeleted, bool ignoreFilesInThisFolder, bool ignoreAllSubfolder)
         {
             bool checkFolderEmpty = false;
 
@@ -54,9 +54,14 @@ namespace Simple_Updater_Library
                     string file_path = file.Substring(installation_path.Length + 1);
                     nbrFilesLocal++;
 
-                    if (server_files.ContainsKey(file_path) && server_files[file_path].md5 == md5)
+                    // Check the ignore list
+                    if(ignore_list_files.Contains(file_path) || (!server_files.ContainsKey(file_path) && ignoreFilesInThisFolder))
                     {
-                        // So the file is correct - delete it from server dictionary
+                        // Skip this file
+                    }
+                    else if(server_files.ContainsKey(file_path) && (server_files[file_path].md5 == md5 || ignoreFilesInThisFolder))
+                    {
+                        // So the file is correct - delete it from server files list dictionary (will be used to download missing files)
                         server_files.Remove(file_path);
                     }
                     else
@@ -74,9 +79,19 @@ namespace Simple_Updater_Library
                 else
                 {
                     // Search and add all files from directories
+                    bool oldValueIgnore = ignoreAllSubfolder;
                     foreach (string directory in Directory.GetDirectories(dir))
                     {
-                        if (SearchLocalFiles(installation_path, directory, server_files, ref nbrFilesLocal, ref nbrFilesDeleted))
+                        // Check if this folder is ignored
+                        // Do not check if a parent folder is already ignored with 'all_subfolders' set to true
+
+                        string path_dir = directory.Substring(installation_path.Length + 1);
+                        ignoreFilesInThisFolder = ignoreAllSubfolder || ignore_list_folders.ContainsKey(path_dir);
+
+                        if (!ignoreAllSubfolder && ignore_list_folders.ContainsKey(path_dir))
+                            ignoreAllSubfolder = ignore_list_folders[path_dir];
+
+                        if (SearchLocalFiles(installation_path, directory, server_files, ignore_list_files, ignore_list_folders, ref nbrFilesLocal, ref nbrFilesDeleted, ignoreFilesInThisFolder, ignoreAllSubfolder))
                         {
                             // Delete the directory if it's empty
                             if (Directory.Exists(dir) && !Directory.EnumerateFileSystemEntries(dir).Any())
@@ -85,6 +100,8 @@ namespace Simple_Updater_Library
                                 checkFolderEmpty = true;
                             }
                         }
+
+                        ignoreAllSubfolder = oldValueIgnore;
                     }
                 }
 
@@ -108,7 +125,7 @@ namespace Simple_Updater_Library
             }
         }
 
-        private static Dictionary<string, File> parseFileServer(string server_url)
+        private Dictionary<string, File> parseFileServer()
         {
             List<File> files_server = new List<File>();
             string jsonFile = "";
@@ -116,7 +133,7 @@ namespace Simple_Updater_Library
             {
                 try
                 {
-                    jsonFile = client.DownloadString(server_url);
+                    jsonFile = client.DownloadString(this.server_url);
                 }
                 catch
                 {
@@ -127,15 +144,40 @@ namespace Simple_Updater_Library
             if (!string.IsNullOrEmpty(jsonFile))
             {
                 JObject json_file_object = JObject.Parse(jsonFile);
-                JToken token = json_file_object.GetValue("files");
+                JToken files = json_file_object.GetValue("files");
                 Dictionary<string, File> files_arr_tmp = new Dictionary<string, File>();
 
-                for (int i = 0; i < token.Count(); i++)
+                // Convert json item to File Object
+                for (int i = 0; i < files.First.Count(); i++)
                 {
                     File file = new File();
-                    file = JsonConvert.DeserializeObject<File>(token[i].ToString());
+                    file = JsonConvert.DeserializeObject<File>(files.First[i].ToString());
 
                     files_arr_tmp.Add(file.filename, file);
+                }
+
+                // Get Ignore list
+                this.ignore_list_files = new List<string>();
+                this.ignore_list_folders = new Dictionary<string, bool>();
+
+                JToken ignore = json_file_object.GetValue("ignore");
+
+                // Parse ignore list if it's not empty
+                if(!string.IsNullOrEmpty(ignore.ToString()))
+                {
+                    JToken ignore_file = ignore["files"];
+                    foreach (JToken childToken in ignore_file)
+                    {
+                        this.ignore_list_files.Add(childToken.ToString());
+                    }
+
+                    JToken ignore_folder = ignore["folders"];
+                    foreach (JToken childToken in ignore_folder)
+                    {
+                        string folder_path = childToken["folder_path"].ToString();
+                        bool all_subfolders = childToken["all_subfolders"].Value<bool>();
+                        this.ignore_list_folders.Add(folder_path, all_subfolders);
+                    }
                 }
 
                 return files_arr_tmp;
