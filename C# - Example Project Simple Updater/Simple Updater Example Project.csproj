@@ -80,7 +80,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Simple Updater Library\Simple Updater Library.csproj">
+    <ProjectReference Include="..\C# - Simple Updater Library\Simple Updater Library.csproj">
       <Project>{ee43baa9-4c29-494c-a69b-e1f5e69ce50d}</Project>
       <Name>Simple Updater Library</Name>
     </ProjectReference>

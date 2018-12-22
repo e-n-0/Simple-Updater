@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple Updater Example Project", "Simple Updater\Simple Updater Example Project.csproj", "{45744E30-C576-4A18-8B09-DF968BFEB398}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple Updater Example Project", "C# - Example Project Simple Updater\Simple Updater Example Project.csproj", "{45744E30-C576-4A18-8B09-DF968BFEB398}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple Updater Library", "Simple Updater Library\Simple Updater Library.csproj", "{EE43BAA9-4C29-494C-A69B-E1F5E69CE50D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple Updater Library", "C# - Simple Updater Library\Simple Updater Library.csproj", "{EE43BAA9-4C29-494C-A69B-E1F5E69CE50D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

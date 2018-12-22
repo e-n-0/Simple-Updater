@@ -2,6 +2,16 @@
 using System.Collections.Generic;
 using System.Threading;
 
+/**
+ * Simple Updater Library
+ * 
+ * Author : S0me1ne - Flavien Darche
+ * GitHub: https://github.com/S0me1ne/Simple-Updater
+ * Website: https://s0me1ne.fr
+ * 
+ * Date: 2018
+ */
+
 namespace Simple_Updater_Library
 {
     public partial class SimpleUpdater

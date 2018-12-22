@@ -1,0 +1,19 @@
+{
+    "folders":
+    [
+        {
+            "folder_path": "ignoreAllFromThatfolder",
+            "all_subfolders" : true
+        },
+        {
+            "folder_path": "ignoreJustFilesFromThatFolder",
+            "all_subfolders" : false
+        }
+    ],
+
+    "files":
+    [
+        "testFile.txt",
+        "testFolder\\testFile2.txt"
+    ]
+}
