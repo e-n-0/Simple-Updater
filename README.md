@@ -119,7 +119,7 @@ This will download all files that needs to be downloaded to the `installation_pa
 |OnDownloadProgressChanged | `long TotalBytesDownloaded`<br>`float percent`| Event triggered each time the download progress changed
 | OnStatusChanged | `int code` | Event triggered when the status of the updater change
 
-> In the JAVA version you need to create a class and implement the `SimpleUpdaterEvents` class to it. You need also to add this class to listeners of `SimpleUpdater` Object with `updater.addListener(yourEventClass)`.<br>Check the JAVA example project for more information.
+> In the JAVA version you need to create a class and implement the `SimpleUpdaterEvents` class to it. Create an instance of this class and add it to listeners of `SimpleUpdater` Object with `updater.addListener(yourEventClassObject)`.<br>Check the JAVA example project for more information.
 
 ### Status code
 
