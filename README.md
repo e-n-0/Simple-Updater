@@ -1,12 +1,15 @@
+
 # <div align=center><img src="https://i.imgur.com/1gvVedX.png" /><br>![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat) [![HitCount](http://hits.dwyl.io/S0me1ne/Simple-Updater.svg)](http://hits.dwyl.io/S0me1ne/Simple-Updater) [![Docs](https://inch-ci.org/github/dwyl/hapi-auth-jwt2.svg)](#code-documentation) </div>
 
 
-**Simple Updater** is a library created to help you building an Updater in a few lines of code (for your game launcher or other projects).
-Just download the library, reference it to your project and you are good to go !
-For now, it's only usable with **.NET** *≥ 4.6*
-It's developped in **C#**. Check the documention bellow to start using it !  *(An example project is provided in the source)*
+**Simple Updater** is a library created to help you building an Updater in a few lines of code (for your game launcher or other projects).<br>
+This library is built in **C#** *(.NET ≥ 4.6)* and **JAVA** *(JRE ≥ 1.8_80)*.<br>
+Just download the library, reference it to your project and you are good to go !<br>
+Check the documention bellow to start using it !  *(An example project is provided in the source for each langage)*
 
 ### Features:
+* Developped both in C# and JAVA
+* No extra libraries ! All is native.
 * Easy integration
 * Keep the client updated with the server
 * Delete old or unwanted files that doesn't match with the server
@@ -17,7 +20,7 @@ It's developped in **C#**. Check the documention bellow to start using it !  *(A
 * Status code
 * Download progression
 * Asynchronous download
-* Example project fully commented
+* Example projects fully commented
 
 ***Any contribution is welcome !***
 
@@ -27,10 +30,12 @@ It's developped in **C#**. Check the documention bellow to start using it !  *(A
 * [Installation](#installation)
 	* [Web server](#web-server)
 	* [Client integration](#client-integration)
+		* C#
+		* JAVA
 * [Code documentation](#code-documentation)
 	* [Create the Simple Updater object](#create-the-simple-updater-object.)
-	* Function: Check files from the server and delete outdated files
-	* Function: Download files
+	* [Function: Check files from the server and delete outdated files](#function-check-files-from-the-server-and-delete-outdated-files-keep-updated)
+	* [Function: Download files](#function-download-files)
 	* [Attributes of SimpleUpdater object](#attributes-of-simpleupdater-object)
 	* [Events](#events)
 	* [Status code](#status-code)
@@ -50,10 +55,16 @@ You will need a webserver to host files that the updater will download.
 5. Place all files that you want to download in that **'files'** folder
 
 ### Client integration
+
+#### C#
 1. Go to the [release](https://github.com/S0me1ne/Simple-Updater/releases) page and download the **Simple Updater** library.
 2. Reference it in your project ([Microsoft tutorial](https://msdn.microsoft.com/en-us/library/7314433t(VS.71).aspx))
 3. Use the Object **SimpleUpdater** *(see the documentation bellow)*
 
+#### JAVA
+1. Go to the [release](https://github.com/S0me1ne/Simple-Updater/releases) page and download the **Simple Updater** library.
+2. Add it in your project ([A tutorial](http://www.oxfordmathcenter.com/drupal7/node/44))
+3. Use the Object **SimpleUpdater** *(see the documentation bellow)*
 ## Code documentation
 
 ### Create the Simple Updater object.
@@ -64,8 +75,8 @@ SimpleUpdater updater = new SimpleUpdater(server_url, installation_path);
 
 |Params          |Type        |Description|
 |----------------|------------|-----------|
-|server_url		 |`string`    | The url of the server on which files will be download
-| installation_path | `string` | The path where files will be downloaded **(be careful if not set correctly it can delete wrong files)**
+|server_url		 |`string` / `String`   | The url of the server on which files will be download
+| installation_path | `string` / `String` | The path where files will be downloaded **(be careful if not set correctly it can delete wrong files)**
 
 ### Function: Check files from the server and delete outdated files (keep updated)
 
@@ -90,14 +101,14 @@ This will download all files that needs to be downloaded to the `installation_pa
 
 ### Attributes of SimpleUpdater object
 
-|Name 	 |Type 	|Description
-|------- |------|-------
-|Server_Url | <div color="red">`string`</div> | The url of the server on which files will be downloaded
-| Installation_path | `string` | The path where files will be download
-| CanDownload | `bool` | Check whether you can start the download of files
-| CanCheck | `bool` | Check whether  you can start the verification process of local files
-| NumberOfBytesToDownload | `long` | Get the number of bytes that will be downloaded
-| StatusCode | `uint` | Get the status code
+|Name *(C#)* | Function *(JAVA)*	 |Type 	|Description
+|------- |--------|------|-------
+|Server_Url | `getServerUrl()` | `string` / `String`| The url of the server on which files will be downloaded
+| Installation_path | `getInstallationPath()` | `string` / `String` | The path where files will be download
+| CanDownload | `CanDownload()` | `bool` / `Boolean` | Check whether you can start the download of files
+| CanCheck | `CanCheck()` | `bool` / `Boolean`| Check whether  you can start the verification process of local files
+| NumberOfBytesToDownload | `getNumberOfBytesToDownlaod()` | `long` | Get the number of bytes that will be downloaded
+| StatusCode | `getStatusCode()` | `int` | Get the status code
 
 ### Events
 
@@ -106,7 +117,9 @@ This will download all files that needs to be downloaded to the `installation_pa
 |OnCheckFinished | `int nbrLocalFiles`<br>`int nbrServerFiles`<br>`int nbrFilesToDownload`<br>`int nbrFilesDeleted`<br>`long numberOfBytesToDownload` | Event triggered when the verification process ends
 |OnDownloadFinished | `long TotalBytesDownloaded` | Event triggered when the download ends
 |OnDownloadProgressChanged | `long TotalBytesDownloaded`<br>`float percent`| Event triggered each time the download progress changed
-| OnStatusChanged | `uint code` | Event triggered when the status of the updater change
+| OnStatusChanged | `int code` | Event triggered when the status of the updater change
+
+> In the JAVA version you need to create a class and implement the `SimpleUpdaterEvents` class to it. You need also to add this class to listeners of `SimpleUpdater` Object with `updater.addListener(yourEventClass)`.<br>Check the JAVA example project for more information.
 
 ### Status code
 
@@ -119,17 +132,22 @@ This will download all files that needs to be downloaded to the `installation_pa
 | 4 | Download started
 | 5 | A file has been successfully downloaded
 | 6 | An error occurered when downloading a file
-| 7 | Download cancelled
+| 7 | An error occured will trying to access the server
 | 8 | Download finished<br>Triggered after Download_Finished(...)
 
-## Example Project
+## Example Projects
 
+### C#
 The example project is fully commented. You can find it in **[C# - Example Project Simple Updater](https://github.com/S0me1ne/Simple-Updater/tree/master/C%23%20-%20Example%20Project%20Simple%20Updater "C# - Example Project Simple Updater")**.
 
 ![Screen](https://i.imgur.com/VEIsWeq.png)
 
+### JAVA
+This example project if fully commented. It prints debug to the console. You can find it in 
+![Screen](https://i.imgur.com/YMfndVk.png)
+
 ## Credit
-* [S0me1ne](https://github.com/S0me1ne) - Flavien Darche _ [[Twitter](https://twitter.com/_S0me1ne) - [Website]((https://s0me1ne.fr))]
+* [S0me1ne](https://github.com/S0me1ne) - Flavien Darche _ [[Twitter](https://twitter.com/_S0me1ne) - [Website](https://s0me1ne.fr)]
 
 ## License
 
