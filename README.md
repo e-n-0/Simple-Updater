@@ -23,6 +23,7 @@ Check the documention bellow to start using it !  *(An example project is provid
 * Example projects fully commented
 
 ***Any contribution is welcome !***
+<br>Current Version: **1.1**
 
 ## **Table of Contents**
 * Presentation
