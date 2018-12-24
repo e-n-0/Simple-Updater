@@ -144,7 +144,7 @@ The example project is fully commented. You can find it in **[C# - Example Proje
 ![Screen](https://i.imgur.com/VEIsWeq.png)
 
 ### JAVA
-This example project if fully commented. It prints debug to the console. You can find it in 
+This example project if fully commented. It prints debug to the console. You can find it in [**'JAVA - Simple Updater Library'**](https://github.com/S0me1ne/Simple-Updater/tree/master/JAVA%20-%20Simple%20Updater%20Library).
 ![Screen](https://i.imgur.com/YMfndVk.png)
 
 ## Credit
