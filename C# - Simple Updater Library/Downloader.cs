@@ -76,14 +76,8 @@ namespace Simple_Updater_Library
         {
             if (e.Error != null)
             {
-                // handle error scenario
                 Status_Changed(6);
                 throw e.Error;
-            }
-            if (e.Cancelled)
-            {
-                // handle cancelled scenario
-                Status_Changed(7);
             }
 
             this.bytesdownloaded += this.totalbytestoreceive;

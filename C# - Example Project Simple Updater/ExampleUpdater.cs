@@ -33,7 +33,7 @@ namespace Simple_Updater
         }
 
         // Event triggered when the status changed
-        private void Updater_OnStatusChanged(uint code)
+        private void Updater_OnStatusChanged(int code)
         {
             /*
              * 0 - Waiting for action
@@ -43,21 +43,21 @@ namespace Simple_Updater
              * 4 - Download started
              * 5 - A file has been successfully downloaded
              * 6 - An error occurered when downloading a file
-             * 7 - Download cancelled
+             * 7 - An error occured will trying to access the server
              * 8 - Download finished - Triggered after Download_Finished(...) - (not very usefull - duplicate of Download_Finished(...) )
              */
 
             switch (code)
             {
-                case 0: Debug.WriteLine("Waiting for action"); return;
-                case 1: Debug.WriteLine("Contacting server for files to parse"); return;
-                case 2: Debug.WriteLine("Search and delete local files"); return;
-                case 3: Debug.WriteLine("Check finished"); return;
-                case 4: Debug.WriteLine("Download started"); return;
-                case 5: Debug.WriteLine("A file has been successfully downloaded"); return;
-                case 6: Debug.WriteLine("An error occurered when downloading a file"); return;
-                case 7: Debug.WriteLine("Download cancelled"); return;
-                case 8: Debug.WriteLine("Download finished"); return;
+                case 0: Debug.WriteLine("Status: Waiting for action"); return;
+                case 1: Debug.WriteLine("Status: Contacting server for files to parse"); return;
+                case 2: Debug.WriteLine("Status: Search and delete local files"); return;
+                case 3: Debug.WriteLine("Status: Check finished"); return;
+                case 4: Debug.WriteLine("Status: Download started"); return;
+                case 5: Debug.WriteLine("Status: A file has been successfully downloaded"); return;
+                case 6: Debug.WriteLine("Status: An error occurered when downloading a file"); return;
+                case 7: Debug.WriteLine("Status: An error occured will trying to access the server"); return;
+                case 8: Debug.WriteLine("Status: Download finished"); return;
                 default: return;
             }
         }

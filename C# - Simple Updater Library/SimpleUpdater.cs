@@ -48,8 +48,8 @@ namespace Simple_Updater_Library
             get => this.numberOfBytesToDownload;
         }
 
-        private uint statusCode;
-        public uint StatusCode
+        private int statusCode;
+        public int StatusCode
         {
             get => this.statusCode;
         }
@@ -67,7 +67,7 @@ namespace Simple_Updater_Library
         public delegate void DownloadProgressChanged(long totalbytesdownloaded, float percent);
         public event DownloadProgressChanged OnDownloadProgressChanged;
 
-        public delegate void StatusChanged(uint code);
+        public delegate void StatusChanged(int code);
         public event StatusChanged OnStatusChanged;
 
         #endregion
@@ -160,7 +160,7 @@ namespace Simple_Updater_Library
             OnDownloadProgressChanged(totalbytesdownloaded, percent * 100);
         }
 
-        private void Status_Changed(uint code)
+        private void Status_Changed(int code)
         {
             /*
              * 0 - Waiting for action
@@ -170,7 +170,7 @@ namespace Simple_Updater_Library
              * 4 - Download started
              * 5 - A file has been successfully downloaded
              * 6 - An error occurered when downloading a file
-             * 7 - Download cancelled
+             * 7 - An error occured will trying to access the server
              * 8 - Download finished - Triggered after Download_Finished(...) - (not very usefull - duplicate of Download_Finished(...) )
              */
 

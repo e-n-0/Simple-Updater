@@ -135,7 +135,8 @@ namespace Simple_Updater_Library
                 }
                 catch
                 {
-                    throw new Exception("An error occured will trying to access the server");
+                    Status_Changed(7);
+                    return new Dictionary<string, File>();
                 }
             }
 
