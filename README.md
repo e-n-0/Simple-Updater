@@ -1,5 +1,5 @@
 
-# <div align=center><img src="https://i.imgur.com/1gvVedX.png" /><br>![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat) [![HitCount](http://hits.dwyl.io/S0me1ne/Simple-Updater.svg)](http://hits.dwyl.io/S0me1ne/Simple-Updater) [![Docs](https://inch-ci.org/github/dwyl/hapi-auth-jwt2.svg)](#code-documentation) </div>
+# <div align=center><img src="https://i.imgur.com/1gvVedX.png" /><br>![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat) [![Docs](https://inch-ci.org/github/dwyl/hapi-auth-jwt2.svg)](#code-documentation) </div>
 
 
 **Simple Updater** is a library created to help you building an Updater in a few lines of code (for your game launcher or other projects).<br>
@@ -58,12 +58,12 @@ You will need a webserver to host files that the updater will download.
 ### Client integration
 
 #### C#
-1. Go to the [release](https://github.com/S0me1ne/Simple-Updater/releases) page and download the **Simple Updater** library.
+1. Go to the [release](https://github.com/e-n-0/Simple-Updater/releases) page and download the **Simple Updater** library.
 2. Reference it in your project ([Microsoft tutorial](https://msdn.microsoft.com/en-us/library/7314433t(VS.71).aspx))
 3. Use the Object **SimpleUpdater** *(see the documentation bellow)*
 
 #### JAVA
-1. Go to the [release](https://github.com/S0me1ne/Simple-Updater/releases) page and download the **Simple Updater** library.
+1. Go to the [release](https://github.com/e-n-0/Simple-Updater/releases) page and download the **Simple Updater** library.
 2. Add it in your project ([A tutorial](http://www.oxfordmathcenter.com/drupal7/node/44))
 3. Use the Object **SimpleUpdater** *(see the documentation bellow)*
 ## Code documentation
@@ -139,17 +139,17 @@ This will download all files that needs to be downloaded to the `installation_pa
 ## Example Projects
 
 ### C#
-The example project is fully commented. You can find it in **[C# - Example Project Simple Updater](https://github.com/S0me1ne/Simple-Updater/tree/master/C%23%20-%20Example%20Project%20Simple%20Updater "C# - Example Project Simple Updater")**.
+The example project is fully commented. You can find it in **[C# - Example Project Simple Updater](https://github.com/e-n-0/Simple-Updater/tree/master/C%23%20-%20Example%20Project%20Simple%20Updater "C# - Example Project Simple Updater")**.
 
 ![Screen](https://i.imgur.com/VEIsWeq.png)
 
 ### JAVA
-This example project if fully commented. It prints debug to the console. You can find it in [**'JAVA - Simple Updater Library'**](https://github.com/S0me1ne/Simple-Updater/tree/master/JAVA%20-%20Simple%20Updater%20Library).
+This example project if fully commented. It prints debug to the console. You can find it in [**'JAVA - Simple Updater Library'**](https://github.com/e-n-0/Simple-Updater/tree/master/JAVA%20-%20Simple%20Updater%20Library).
 ![Screen](https://i.imgur.com/YMfndVk.png)
 
 ## Credit
-* [S0me1ne](https://github.com/S0me1ne) - Flavien Darche _ [[Twitter](https://twitter.com/_S0me1ne) - [Website](https://s0me1ne.fr)]
+* en0 - Flavien Darche
 
 ## License
 
-[`MIT License`](https://github.com/S0me1ne/Simple-Updater/blob/master/LICENSE)
+[`MIT License`](https://github.com/e-n-0/Simple-Updater/blob/master/LICENSE)
